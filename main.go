@@ -109,7 +109,11 @@ func fixNode(n parse.Node, w io.Writer) {
 			}
 		}
 	} else if len(n.Children()) == 0 {
-		w.Write([]byte(n.SourceText()))
+		text := n.SourceText()
+		if text == "?(" {
+			text = "("
+		}
+		w.Write([]byte(text))
 	} else {
 		for _, child := range n.Children() {
 			fixNode(child, w)

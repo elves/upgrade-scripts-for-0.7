@@ -13,7 +13,8 @@ It does not accept any flags.
 
 ## Changes in 0.7
 
-Version 0.7 introduces several major backward-incompatible changes:
+Version 0.7 introduces several major backward-incompatible changes; all of
+them are fixed by this program:
 
 1.  Control structures used to mimic POSIX shell, but now use curly braces.
 
@@ -21,6 +22,10 @@ Version 0.7 introduces several major backward-incompatible changes:
     or `eq` to indicate whether it has suceeded or failed. Now they simply
     output a boolean value `$true` or `$false` 
     ([#319](https://github.com/elves/elvish/issues/319)).
+
+    The `?(...)` operator used to capture the "boolean return value". Use the
+    output capture operator `(...)` instead. The `?(...)` operator has been
+    repurposed to capture exceptions.
 
 3.  The `if` and `while` control structures now take values instead of
     pipelines (also see [#319](https://github.com/elves/elvish/issues/319)).

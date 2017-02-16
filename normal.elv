@@ -21,3 +21,5 @@ else
 finally
     these
 tried
+
+echo ?(true)
