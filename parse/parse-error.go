@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/elves/elvish/util"
+	"github.com/elves/fix-for-0.7/util"
 )
 
 // ParseErrorEntry represents one parse error.
