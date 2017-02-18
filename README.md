@@ -62,3 +62,14 @@ them are fixed by this program:
         echo $x
     }
     ```
+
+# Additional fixes
+
+Version 0.6 introduced a more readable syntax for assignment. This program
+will also fix `a=b` to `a = b`. Not all assignments are fixed:
+
+*   The new syntax does not support doing multiple assignments at once, so
+    `a=b c=d` will be left untouched.
+
+*   The old syntax is still the only syntax for temporary assignments, so `a=b
+    ls` will be left untouched.

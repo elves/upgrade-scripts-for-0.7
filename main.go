@@ -108,6 +108,10 @@ func fixNode(n parse.Node, w io.Writer) {
 				fixNode(child, w)
 			}
 		}
+	} else if assign := fixableAssignment(n); assign != nil {
+		fixNode(assign.Left, w)
+		w.Write([]byte(" = "))
+		fixNode(assign.Right, w)
 	} else if len(n.Children()) == 0 {
 		text := n.SourceText()
 		if text == "?(" {
@@ -119,6 +123,14 @@ func fixNode(n parse.Node, w io.Writer) {
 			fixNode(child, w)
 		}
 	}
+}
+
+func fixableAssignment(n parse.Node) *parse.Assignment {
+	fn, ok := n.(*parse.Form)
+	if ok && fn.Vars == nil && fn.Head == nil && len(fn.Assignments) == 1 {
+		return fn.Assignments[0]
+	}
+	return nil
 }
 
 func isCondition(ch parse.Node, ctrl *parse.Control) bool {

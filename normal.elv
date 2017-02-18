@@ -23,3 +23,7 @@ finally
 tried
 
 echo ?(true)
+
+a=b
+a=b c=d
+a=b ls
