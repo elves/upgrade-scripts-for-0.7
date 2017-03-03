@@ -108,10 +108,24 @@ func fixNode(n parse.Node, w io.Writer) {
 				fixNode(child, w)
 			}
 		}
-	} else if assign := fixableAssignment(n); assign != nil {
-		fixNode(assign.Left, w)
-		w.Write([]byte(" = "))
-		fixNode(assign.Right, w)
+	} else if assigns := fixableAssignment(n); assigns != nil {
+		for i, assign := range assigns {
+			if i > 0 {
+				w.Write([]byte("; "))
+			}
+			if assign.Left.Head.Type == parse.Braced {
+				for i, v := range assign.Left.Head.Braced {
+					if i > 0 {
+						w.Write([]byte(" "))
+					}
+					fixNode(v, w)
+				}
+			} else {
+				fixNode(assign.Left, w)
+			}
+			w.Write([]byte(" = "))
+			fixNode(assign.Right, w)
+		}
 	} else if len(n.Children()) == 0 {
 		text := n.SourceText()
 		if text == "?(" {
@@ -125,10 +139,10 @@ func fixNode(n parse.Node, w io.Writer) {
 	}
 }
 
-func fixableAssignment(n parse.Node) *parse.Assignment {
+func fixableAssignment(n parse.Node) []*parse.Assignment {
 	fn, ok := n.(*parse.Form)
-	if ok && fn.Vars == nil && fn.Head == nil && len(fn.Assignments) == 1 {
-		return fn.Assignments[0]
+	if ok && fn.Vars == nil && fn.Head == nil {
+		return fn.Assignments
 	}
 	return nil
 }

@@ -27,3 +27,4 @@ echo ?(true)
 a=b
 a=b c=d
 a=b ls
+{a,b}={1,2}
