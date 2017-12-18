@@ -1,8 +1,8 @@
-# Fix for 0.7
+# Upgrade scripts for 0.7
 
 ## Invocation
 
-The `fix-for-0.7` fixes elvishscript code written before 0.7. It can be invoked in one of two ways:
+This tool fixes Elvishscript code written before 0.7. It can be invoked in one of two ways:
 
 *   Without arguments, it reads stdin and writes stdout.
 
